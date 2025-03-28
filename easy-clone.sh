@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# 루트 디렉토리 
+# 상대경로 사용 시 주석 처리
+ROOT_PATH="루트 디렉토리"
+
 # 저장소 리스트: ("URL" "로컬폴더") 순서쌍
 REPOSITORIES=(
   "clone할 URL1" "로컬 폴더의 이름1"
@@ -7,11 +11,19 @@ REPOSITORIES=(
 )
 
 echo "🚀 Git 저장소 Clone 시작: $(date)"
+echo "📂 루트 경로: $ROOT_PATH"
 
 # 배열을 2개씩 순회 (URL, 디렉토리명)
 for ((i=0; i<${#REPOSITORIES[@]}; i+=2)); do
   REPO_URL="${REPOSITORIES[i]}"
-  TARGET_DIR="${REPOSITORIES[i+1]}"
+  DIR_NAME="${REPOSITORIES[i+1]}"
+
+  # 루트 경로와 결합
+  if [ -n "$ROOT_PATH" ]; then
+    TARGET_DIR="$ROOT_PATH/$DIR_NAME"
+  else
+    TARGET_DIR="$DIR_NAME"
+  fi
 
   if [ -d "$TARGET_DIR/.git" ]; then
     echo "✅ 이미 존재: $TARGET_DIR → clone 생략"
