@@ -2,7 +2,7 @@
 
 # 루트 디렉토리 
 # 상대경로 사용 시 주석 처리
-ROOT_PATH="루트 디렉토리"
+ROOT_PATH="/c/SSAFY"
 
 # 저장소 리스트: ("URL" "로컬폴더") 순서쌍
 REPOSITORIES=(
@@ -22,7 +22,8 @@ for ((i=0; i<${#REPOSITORIES[@]}; i+=2)); do
   if [ -n "$ROOT_PATH" ]; then
     TARGET_DIR="$ROOT_PATH/$DIR_NAME"
   else
-    TARGET_DIR="$DIR_NAME"
+    SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    TARGET_DIR="$SCRIPT_DIR/$DIR_NAME"
   fi
 
   if [ -d "$TARGET_DIR/.git" ]; then

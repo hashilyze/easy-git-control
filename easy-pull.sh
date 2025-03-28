@@ -2,7 +2,7 @@
 
 # 루트 디렉토리 
 # 상대경로 사용 시 주석 처리
-ROOT_PATH="루트 디렉토리"
+ROOT_PATH="/c/SSAFY"
 
 # 로컬 리포지토리 리스트: ("로컬폴더")
 REPO_PATHS=(  
@@ -18,7 +18,8 @@ for path in "${REPO_PATHS[@]}"; do
   if [ -n "$ROOT_PATH" ]; then
     repo="$ROOT_PATH/$path"
   else
-    repo="$path"
+    SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    repo="$SCRIPT_DIR/$path"
   fi
 
   if [ -d "$repo/.git" ]; then
